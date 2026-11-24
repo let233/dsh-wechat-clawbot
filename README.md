@@ -1,5 +1,11 @@
 # dsh-wechat-clawbot
 
+[![CI](https://github.com/let233/dsh-wechat-clawbot/actions/workflows/ci.yml/badge.svg)](https://github.com/let233/dsh-wechat-clawbot/actions/workflows/ci.yml)
+[![Release](https://img.shields.io/github/v/release/let233/dsh-wechat-clawbot?include_prereleases&sort=semver)](https://github.com/let233/dsh-wechat-clawbot/releases)
+[![License: MIT](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
+[![Node](https://img.shields.io/badge/node-%3E%3D20-brightgreen.svg)](package.json)
+
+
 把 **DeepSeekRuntime（DSH）** 接到 **微信 ClawBot（iLink Bot API）**：在微信里跟一个专属的「协调器会话」聊天，让它查询所有工作区的会话、为某个会话开一个**专属指挥会话**、派发新任务，并把结果分批回到微信。微信侧有主动消息限制，所以另配了 **Bark / WxPusher** 推送兜底。
 
 一条硬规则：**微信端所有消息只会落进插件自己创建的专属会话**（协调器，或某个目标会话的指挥会话），永远不会直接写进普通工作会话。
