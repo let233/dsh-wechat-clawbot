@@ -1,0 +1,59 @@
+{
+  "name": "dsh-wechat-clawbot",
+  "version": "0.1.0",
+  "description": "微信 ClawBot（iLink Bot API）↔ DeepSeekRuntime 双向桥：专属协调器/指挥会话、原样派发、大白话切换、Cloudflare/frp 隧道、Bark 与 WxPusher 推送兜底",
+  "type": "module",
+  "main": "lib/index.js",
+  "exports": {
+    ".": {
+      "default": "./lib/index.js"
+    },
+    "./client": {
+      "default": "./lib/client.js"
+    },
+    "./package.json": "./package.json"
+  },
+  "files": [
+    "lib/",
+    "cordis.patch.yml",
+    "README.md",
+    "LICENSE",
+    "CHANGELOG.md"
+  ],
+  "engines": {
+    "node": ">=20"
+  },
+  "author": "let233",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/let233/dsh-wechat-clawbot.git"
+  },
+  "homepage": "https://github.com/let233/dsh-wechat-clawbot#readme",
+  "bugs": {
+    "url": "https://github.com/let233/dsh-wechat-clawbot/issues"
+  },
+  "keywords": [
+    "dsh",
+    "deepseekruntime",
+    "wechat",
+    "clawbot",
+    "ilink",
+    "bot",
+    "cloudflare-tunnel",
+    "frp",
+    "bark",
+    "wxpusher",
+    "plugin"
+  ],
+  "dsh": {
+    "bundle": {
+      "patch": "./cordis.patch.yml"
+    },
+    "client": {
+      "inject": [],
+      "platform": "web"
+    },
+    "manifestVersion": 1
+  }
+}

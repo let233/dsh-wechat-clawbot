@@ -1,0 +1,11 @@
+# dsh-wechat-clawbot bundle patch
+#
+# 安装方式（二选一）：
+#   1. dsh plugin --profile <name> add dsh-wechat-clawbot     （本地安装用 file: 路径）
+#   2. 手动把包放进 <profile>/node_modules 并在 package.json 的 dsh.profile.bundles 里加一行
+#
+# 这一行即插件的挂载点：id 与包名一致时，dsh-client-modules 会把本包的浏览器半边
+# （lib/client.js）挂到同一行上，因此设置入口无需额外注册。
+- insert:
+    - id: dsh-wechat-clawbot
+      name: dsh-wechat-clawbot
