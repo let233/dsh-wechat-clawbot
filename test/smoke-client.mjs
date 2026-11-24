@@ -84,6 +84,41 @@ for (const item of registrations) {
 const sectionComponent = registrations.find((item) => item.registration.name === "settings.section")?.component;
 expect(typeof sectionComponent === "function", "settings.section 组件不是函数");
 
+// 设置页图标必须是内联 SVG，不能再是 emoji 文本
+// 注册的组件是函数组件外层，假 createElement 不会替我们展开，这里手动展开一层。
+const renderTree = (node) => {
+  let current = node;
+  for (let guard = 0; guard < 5 && current && typeof current.type === "function"; guard += 1) {
+    current = current.type(current.props);
+  }
+  return current;
+};
+
+const iconComponent = registrations.find((item) => item.registration.name === "settings.section.icon")?.component;
+expect(typeof iconComponent === "function", "settings.section.icon 组件不是函数");
+const icon = renderTree(iconComponent({ size: 20 }));
+expect(icon?.type === "svg", `图标根节点应为 svg，实际 ${typeof icon?.type}`);
+expect(icon?.props?.width === 20 && icon?.props?.height === 20, "图标未按传入 size 缩放");
+expect(icon?.props?.viewBox === "0 0 24 24", "图标缺少 viewBox");
+expect(icon?.props?.["aria-label"] === "微信 ClawBot", "图标缺少 aria-label");
+expect(icon?.props?.stroke === "currentColor", "图标描边未跟随 currentColor");
+
+const textOf = (node) => {
+  if (node === null || node === undefined) return "";
+  if (typeof node === "string") return node;
+  if (typeof node === "number") return String(node);
+  if (Array.isArray(node)) return node.map(textOf).join("");
+  if (typeof node === "object") return textOf(node.children);
+  return "";
+};
+const iconText = textOf(icon);
+expect(iconText === "", `图标不应包含文本节点，实际：${iconText}`);
+expect(!/\p{Extended_Pictographic}/u.test(iconText), "图标里仍有 emoji 字符");
+
+// 缺省 size 时要有可用的回退值，不能渲染成 0 宽
+const iconDefault = renderTree(iconComponent());
+expect(Number(iconDefault?.props?.width) > 0, "图标缺省宽度无效");
+
 if (failures.length) {
   console.error("客户端冒烟测试失败：");
   for (const item of failures) console.error(` - ${item}`);

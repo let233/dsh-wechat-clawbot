@@ -1,5 +1,10 @@
 # 变更日志
 
+## 未发布
+
+### 界面
+- 设置页侧边栏图标改为**内联 SVG**（描边跟随 `currentColor`，按槽位 `size` 缩放），不再使用 emoji；冒烟测试新增断言：图标根节点必须是 `svg`、含 `viewBox`/`aria-label`、无文本节点与 emoji 字符
+
 ## 0.1.0 — 首个发布
 
 ### 微信 ClawBot 接入
